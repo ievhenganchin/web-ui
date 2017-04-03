@@ -118,3 +118,5 @@ console.log(add(5, 10));
 // a / 0 (check if zero)
 // Math.pow
 // Math.sqrt
+
+// validation message = 'Wrong values'
