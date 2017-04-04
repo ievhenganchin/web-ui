@@ -120,3 +120,47 @@ console.log(add(5, 10));
 // Math.sqrt
 
 // validation message = 'Wrong values'
+
+function add(a, b) {
+    if (check(a, b)) {
+        return a + b;
+    } else {
+        console.log('wrong values');
+        return;
+    }
+}
+
+function divide(a, b) {
+    if (check(a, b) && b != 0) {
+        return a / b;
+    } else {
+        console.log('wrong values');
+        return;
+    }
+}
+
+function check(a, b) {
+    return typeof(a) == 'number' && typeof(b) == 'number';
+}
+
+/*
+
+var check = function(a, b) {
+    return typeof(a) == 'number' && typeof(b) == 'number';
+}
+
+*/
+
+var pow = function (a, b) {
+
+}
+
+/*
+
+var pow = undefined;
+
+....
+
+pow = function(a, b) {}
+
+*/
