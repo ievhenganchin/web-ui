@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <title>HTML</title>
+    </head>
+    <body>
+        <div class="header">
+            <ul id="menu" style="display: block">
+                <li>Home</li>
+                <li>About Us</li>
+                <li>Contact Us</li>
+            </ul>
+        </div>
+        <div class="content">
+            <a id="link" href="http://www.google.com" target="_blank">Go to Google</a>
+            <input id="text" type="text" />
+        </div>
+        <div class="footer">
+        </div>
+
+        <button class="btn">Click me</button>
+
+        <script>
+
+            var index = 0;
+
+            var f1 = function(event){
+                event.preventDefault();
+
+                if (index <= 3) {
+                    event.stopPropagation();
+                    //alert('You need to make more than 3 clicks!');
+                    index++;
+                } else {
+                    window.location = this.attributes['href'].value;
+                }
+            };
+
+            document.querySelector("#link").addEventListener("click", f1);
+
+            document.querySelector("#link").addEventListener("click", function(blyaha) {
+                blyaha.preventDefault();
+                console.log("2nd event listener was triggered");
+
+                setTimeout(function() {
+                    console.log("BBBBBBBBBB!");
+                }, 0);
+            });
+
+            document.querySelector("#link").removeEventListener("click", f1);
+
+            document.querySelector(".content").addEventListener("click", function() {
+                console.log("Content element is clicked!");
+            });
+
+            document.body.onclick = function() {
+                console.log('blablabla');
+
+                setTimeout(function() {
+                    console.log("AAAAAAAAAAAA!");
+                }, 2000);
+            }
+
+            document.querySelector("#text").addEventListener("keydown", function(event) {
+                this.addClass('text-class');
+                document.body.style.backgroundColor = "red";
+            });
+
+            document.querySelector("#text").addEventListener("keyup", function() {
+                this.removeClass('text-class');
+                document.body.style.backgroundColor = "white";
+            });
+
+            Element.prototype.addClass = function(cls) {
+                this.className += ' ' + cls;
+            }
+
+            Element.prototype.removeClass = function(cls) {
+                var classArr = this.className.split(' ');
+
+                for (var i = 0; i < classArr.length; i++) {
+                    if (classArr[i] && classArr[i] == cls) {
+                        classArr.splice(i, 1);
+                        this.className = classArr.join(' ');
+
+                        break;
+                    }
+                }
+            }
+
+            /*
+
+            Калькулятор
+
+            два элемента на странице - input и p
+            p выводит результат операции
+            в input операцию задаете
+
+            знак равно - это Enter
+
+            2+2:
+
+            пользователь жмет в input 2 -> 2 выводится в p
+            пользователь жмет + в input (из инпута удаляется 2 и заменяется на +) -> 2+ выводится в p
+            пользователь жмет в input 2 (из инпута удаляется + и заменяется на 2) -> 2+2 выводится в p
+            жмете Enter -> в p = 4
+
+            операция может быть только одна (+, -, *, /)
+
+            */
+        </script>
+    </body>
+</html>
