@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>HTML</title>
+    </head>
+    <body>
+        <input id="calc-input" type="text" />
+        <span id="result"></span>
+
+        <script>
+            var input = document.querySelector('#calc-input');
+            var result = document.querySelector('#result');
+
+            var firstValue = '';
+            var isFirstInput = true;
+            var secondValue = '';
+            var operation = '';
+
+            input.addEventListener("keydown", function(event) {
+
+                console.log(event);
+
+                if (event.keyCode >= 49 && event.keyCode <= 57 || event.keyCode == 190) {
+
+                    if (isFirstInput && firstValue == '') {
+                        result.innerText = '';
+                    }
+
+                    if (isFirstInput && event.key == '.' && firstValue.indexOf('.') != -1) {
+                        event.preventDefault();
+                    }
+
+                    if (!isFirstInput && event.keyCode == 190 && secondValue.indexOf('.') != -1) {
+                        event.preventDefault();
+                    }
+
+                    if (isFirstInput) {
+                        firstValue += event.key;
+                        result.innerText += event.key;
+                    } else {
+                        secondValue += event.key;
+                        result.innerText += event.key;
+                    }
+                } else if (event.key == '+' || event.key == '-' || event.key == '*' || event.key == '/') {
+                    if (isFirstInput) {
+                        operation = event.key;
+                        result.innerText += event.key;  
+                        isFirstInput = false;
+                    } else {
+                        event.preventDefault();
+                    }
+                } else if (event.keyCode == 13) {
+                    
+                    input.value = '';
+                    result.innerText = calc(parseFloat(firstValue), parseFloat(secondValue), operation);
+
+                    isFirstInput = true;
+                    firstValue = '';
+                    secondValue = '';
+                    operation = '';
+                }
+            });
+
+            function calc(first, second, operation) {
+                switch (operation) {
+                    case '+': return first + second;
+                    case '-': return first - second;
+                    case '*': return first * second;
+                    case '/': return first / second;
+                }
+            }
+
+        </script>
+    </body>
+</html>
