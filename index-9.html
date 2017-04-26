@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>HTML</title>
+    </head>
+    <body>
+        <script>
+            var xml = new XMLHttpRequest();
+            xml.open("GET", "https://httpbin.org/get?id=10&name=test");            
+            // POST
+            // PUT
+            // DELETE
+
+            // HEAD
+            // TRACE
+            // DEBUG
+            // OPTIONS
+
+
+            xml.onreadystatechange = function() {
+                if (xml.readyState == 4 && xml.status == 200) {
+                    console.log(JSON.parse(xml.responseText));
+                }
+            }
+
+            xml.addEventListener("load", function(data) {
+                console.log(JSON.parse(data.target.responseText));
+            });
+
+            xml.send();
+        </script>
+    </body>
+</html>
