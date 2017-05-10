@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <title>HTML</title>
+</head>
+
+<body>
+    <script>
+        var Car = (function () {
+            var instance;
+
+            function createInstance() {
+                var object = new Object("I am the instance");
+                return object;
+            }
+
+            return {
+                getInstance: function () {
+                    if (!instance) {
+                        instance = createInstance();
+                    }
+                    return instance;
+                }
+            };
+        })();
+
+        function Factory() {
+            this.create = function (type) {
+                var instance;
+
+                if (type === "Employee") {
+                    instance = new Employee();
+                } else if (type === "Car") {
+                    instance = Car.getInstance();
+                }
+
+                instance.type = type;
+
+                return instance;
+            }
+        }
+    </script>
+</body>
+
+</html>
