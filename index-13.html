@@ -1,0 +1,70 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+    </head>
+    <body>
+        <input id="search" type="text" />
+        <button id="search-submit">Submit</button>
+
+        <button id="advanced-search-submit">Advanced search</button>
+
+        <div id="results"></div>
+        <div id="extended-results"></div>
+        <script>
+            function Search() {
+                this.handlers = [];
+            }
+
+            Search.prototype = {
+                subscribe: function(fn) {
+                    this.handlers.push(fn);
+                },
+                unsubscribe: function(fn) {
+                    this.handlers = this.handlers.filter(
+                        function(item) {
+                            if (item !== fn) {
+                                return item;
+                            }
+                        }
+                    );
+                },
+                fire: function(thisObj, o) {
+                    var scope = thisObj || window;
+                    this.handlers.forEach(function(item) {
+                        item.call(scope, o);
+                    });
+                }
+            };
+
+            var s = new Search();
+
+            var input = document.getElementById("search");
+            var output = document.getElementById("results");
+            var extendedOutput = document.getElementById("extended-results");
+
+            function displayResults(inputData) {
+                output.innerHTML = "User searched for '" + inputData + "'";
+            }
+
+            function displayExtendedResults(inputData) {
+                extendedOutput.innerHTML = "Extended info: ......";
+            }
+
+            s.subscribe(displayResults);
+            s.subscribe(displayExtendedResults);
+
+            document.getElementById("search-submit").addEventListener("click", function() {
+                s.fire(this, input.value);
+            });
+
+            document.getElementById("advanced-search-submit").addEventListener("click", function() {
+                s.fire(this);
+            });
+
+        </script>
+    </body>
+    </html>
