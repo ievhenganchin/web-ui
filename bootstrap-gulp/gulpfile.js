@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    sass = require('gulp-ruby-sass'),    
+    sass = require('gulp-sass'),    
     bower = require('gulp-bower'),    
     bs = require('browser-sync');
 
@@ -36,9 +36,9 @@ gulp.task('dev', function() {
 gulp.task('sass', function() {
     return gulp.src("resources/sass/*.scss")
         .pipe(sass({
-            style: 'compressed',
-            loadPath: [
-                './resources/sass',
+            //style: 'compressed',
+            includePaths: [
+                //'./resources/sass',
                 config.bowerDir + '/bootstrap-sass-official/assets/stylesheets',
                 config.bowerDir + '/fontawesome/scss',
             ]
